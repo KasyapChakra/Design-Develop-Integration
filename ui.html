@@ -1,0 +1,761 @@
+
+
+<head>
+  <style>
+
+.p, .taskSpan {
+  font-family: Arial, Helvetica, sans-serif;
+  color: grey;
+  font-size: 14px;
+}
+
+.p-big {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  font-size: 16 px;
+  font-weight: bold;
+}
+
+.mainInput {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: rgba(209, 209, 209, 0.3);
+  padding: 15px;
+  font-weight: bold;
+  font-size: 15px;
+  width: 100%;
+}
+input:focus {
+  border-color: purple
+}
+
+.input2 {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: rgba(209, 209, 209, 0.3);
+  padding: 5px;
+  font-size: 12px;
+  width: 60%
+}
+
+.pDraft {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  font-size: 14px;
+}
+
+.pSmall{
+  font-family: Arial, Helvetica, sans-serif;
+  color: grey;
+  font-size: 10px;
+}
+
+.subtitleDiv {
+  width: 100%;
+}
+/* CSS */
+.button-1 {
+  background-color: #00aeff;
+  border-radius: 3px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  height: 35px;
+  line-height: 1px;
+  list-style: none;
+  margin: 3;
+  outline: none;
+  padding: 3px 7px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-1:hover,
+.button-1:focus {
+  background-color: #0071a5;
+}
+
+/* CSS */
+.button-2 {
+  background-color: #00aeff;
+  border-radius: 3px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  height: 35px;
+  line-height: 1px;
+  list-style: none;
+  margin: 3;
+  outline: none;
+  padding: 3px 7px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-2:hover,
+.button-2:focus {
+  background-color: #0071a5;
+}
+
+/* CSS */
+.button-3 {
+  background-color: #00aeff;
+  border-radius: 3px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  height: 35px;
+  line-height: 1px;
+  list-style: none;
+  margin: 3;
+  outline: none;
+  padding: 3px 7px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-3:hover,
+.button-3:focus {
+  background-color: #0071a5;
+}
+
+
+
+    </style>
+  </head>
+
+  <p class = "p-big">Get Existing Task<br></p>
+  <p class = "p">Task ID (End of URL): <br><input id="taskIDCurr"  class = "mainInput" type="text" value=""></p>
+    <button class="button-3" id="getButton">Get Task</button>
+    <p class = "p" id = "warningTextTop" style="color:red;"> </p>
+
+  <p class = "p-big">Make New Task <br></p>
+  <p class = "p">Task Name: <br><input id="taskname"  class = "mainInput" type="text" value=""></p>
+  <p class = "p">Task Description: <br><input id="taskdescription"  class = "mainInput" type="text" value=""></p> 
+
+<div class = "subtitleDiv">
+<!-- <p class = "p">ClickUp Username:<input id="username" class = "input2" type="text" value=""></p> -->
+
+<!-- for these fields, add some tutorial text as well -->
+<p class = "p">Figma API Key:<input id="FigmaAPIKey"  class = "input2" type="text" value=""></p>
+<p class = "pSmall">Go to: https://www.figma.com/developers/api#access-tokens, and generate a token.</p>
+<p class = "p">ClickUp API Key:<input id="APIKey"  class = "input2" type="text" value=""></p>
+<p class = "pSmall">Settings > Apps > Generate API Token</p>
+<p class = "p">ClickUp List ID:<input id="ListID"  class = "input2" type="text" value=""></p>
+<p class = "pSmall">https://app.clickup.com/1234567/v/l/li/(LIST ID HERE)</p>
+</div>
+
+
+<!-- <input type="checkbox" role="button" id="draftFlag"> <p class = "pDraft"> Draft </p><br> -->
+
+<button class="button-3" id="create">Create</button>
+<button class="button-1" id="createDraft">Create Draft</button>
+<button class="button-2" id="cancel">Cancel</button>
+<p class = "p" id = "warningText" style="color:red;"> </p>
+
+<p class = "p-big">Check Clickup Comments Mentions<br></p>
+<p class = "p"> Search Clickup Comments for mentions of a keyword or phrase (e.g. your name)</p>
+<input id="CommentMentionInput"  class = "input2" type="text" value="">
+<br>
+<button class="button-1" id="refreshClickupCommentsList">Search</button>
+<br>
+
+<div id = "Clickup Comments List">
+</div>
+
+<p class = "p-big">"Needs Design" Tickets<br></p>
+<p class = "p"> You'll have to copy-paste in the browser, Figma doesn't allow outgoing links here. </p>
+<button class="button-1" id="refreshNeedDesignList">Refresh List</button>
+<br>
+
+<div id = "Needs Design List">
+  </div>
+
+
+<script>
+
+
+
+var warningText = document.getElementById('warningText');
+var warningTextTop = document.getElementById('warningTextTop');
+// do this to unlock that part of the window, user will never see the text as "Error"
+warningText.style.visibility = "hidden";
+warningText.innerHTML = "Error";
+
+warningTextTop.style.visibility = "hidden";
+warningTextTop.innerHTML = "Error";
+
+var userName = "";
+var apiKey = "";
+var listID = "";
+var taskName = "";
+var taskDescription = "";
+var isDraft;
+var taskID = "";
+
+
+  
+
+var curr_task_id = "";
+
+window.onmessage = async (event) => {
+  if (event.data.pluginMessage.type === 'get_updated_ticket_info') { 
+    console.log("GOT TO UPDATED TICKET INFO");
+    fetch(`https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/task/${event.data.pluginMessage.task_id}/`, {
+                  "method": "GET",
+                  "muteHttpExceptions": true,
+                  "headers": {
+                    "Authorization": `${document.getElementById('APIKey').value}`,
+                      "Content-Type": "application/json"
+                  }
+              }).then(response => {
+                response.text().then(responseTextForm => {
+                  console.log(JSON.parse(responseTextForm));
+                  const status = JSON.parse(responseTextForm)["status"]["status"]
+                  
+                  console.log("STATUS OF " + event.data.pluginMessage.task_id + " IS " + status);
+
+                  parent.postMessage({ pluginMessage: { type: 'update-task-of-ID', task_ID: event.data.pluginMessage.task_id, status: status } }, '*')
+                })
+              })
+    
+  }
+  if (event.data.pluginMessage.type === 'getAuthValues') {
+    console.log("USERNAME " + event.data.pluginMessage.username);
+    console.log("APIKey " + event.data.pluginMessage.APIKey);
+    console.log("ListID " + event.data.pluginMessage.listID);
+    console.log("FIGMAAPIKey " + event.data.pluginMessage.figmaAPIKey);
+    //document.getElementById('username').value = event.data.pluginMessage.username; 
+    // pre-fill the fields with the fetched values
+    document.getElementById('APIKey').value = event.data.pluginMessage.APIKey;
+    document.getElementById('ListID').value = event.data.pluginMessage.listID;
+    document.getElementById('FigmaAPIKey').value = event.data.pluginMessage.figmaAPIKey;
+   
+  }
+  if (event.data.pluginMessage.type === 'SELECTION_CHANGE') {
+    console.log(event.data.pluginMessage.data[0].contents)
+  }
+  if (event.data.pluginMessage.type === 'post-image-to-task') {
+    console.log("post-image-to-task reached");
+    if (curr_task_id != "") {
+        // get the image for the given nodes
+      
+        
+        fetch(`https://fierce-spire-09192.herokuapp.com/https://api.figma.com/v1/images/${event.data.pluginMessage.file_key}?ids=${event.data.pluginMessage.node_id}`, {
+                  "method": "GET",
+                  "muteHttpExceptions": true,
+                  "headers": {
+                      "X-Figma-Token": `${document.getElementById('FigmaAPIKey').value}`,
+                  }
+              }).then(response => {
+                console.log(`Response: ${response.status}`);
+                if (response.status != "200") {
+                  parent.postMessage({ pluginMessage: { type: 'image-post-failed'}})
+                  // this is the clickup api key
+                  const apiKeyTextbox = document.getElementById('APIKey');
+                  clickupApiKey = apiKeyTextbox.value;
+
+                  const taskDescriptionBox = document.getElementById('taskdescription');
+                  taskDescription = taskDescriptionBox.value;
+
+                  // need to make it work inside the URL, seems like this is how figma does it (replace all space with -)
+                  
+                  const fileName = event.data.pluginMessage.file_name.replaceAll(' ', '-')
+                
+                  const clickUpImageUpdateData = JSON.stringify({
+                    "markdown_description": 
+                    `[Here's a link to the flow in Figma] (https://www.figma.com/file/${event.data.pluginMessage.file_key}/${fileName}?node-id=${event.data.pluginMessage.link_node_id}) \n\n` +
+                    taskDescription + `\n\n`
+                  });
+
+                  console.log("CURR TASK ID " + curr_task_id)
+                  // update the task with the image and links
+                  fetch(`https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/task/${curr_task_id}/`, {
+                  "method": "PUT",
+                  "muteHttpExceptions": true,
+                  "headers": {
+                      "Authorization": `${clickupApiKey}`,
+                      "Content-Type": "application/json"
+                  },
+                  body: clickUpImageUpdateData
+              }).then(response => {
+                console.log(response)
+              })
+                  return;
+                }
+                response.text().then(responseTextForm => {
+                  
+                  imgURL = JSON.parse(responseTextForm)["images"][event.data.pluginMessage.node_id]
+                  console.log(imgURL)
+                  // now add this to the task in clickup
+                
+
+                  // this is the clickup api key
+                  const apiKeyTextbox = document.getElementById('APIKey');
+                  clickupApiKey = apiKeyTextbox.value;
+
+                  const taskDescriptionBox = document.getElementById('taskdescription');
+                  taskDescription = taskDescriptionBox.value;
+
+                  // need to make it work inside the URL, seems like this is how figma does it (replace all space with -)
+                  
+                  const fileName = event.data.pluginMessage.file_name.replaceAll(' ', '-')
+                
+                  const clickUpImageUpdateData = JSON.stringify({
+                    "markdown_description": `[Here's a link to a screenshot of the Figma flow] (${imgURL}) \n\n` +
+                    `[Here's a link to the flow in Figma] (https://www.figma.com/file/${event.data.pluginMessage.file_key}/${fileName}?node-id=${event.data.pluginMessage.link_node_id}) \n\n` +
+                    taskDescription + `\n\n` + `![Image of Flow](${imgURL})`
+                  });
+
+                  console.log("CURR TASK ID " + curr_task_id)
+                  // update the task with the image and links
+                  fetch(`https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/task/${curr_task_id}/`, {
+                  "method": "PUT",
+                  "muteHttpExceptions": true,
+                  "headers": {
+                      "Authorization": `${clickupApiKey}`,
+                      "Content-Type": "application/json"
+                  },
+                  body: clickUpImageUpdateData
+              }).then(response => {
+                console.log(response)
+              })
+
+
+                })
+              });
+    }
+  }
+}
+
+document.getElementById('getButton').onclick = () => {
+  getTask();
+}
+
+document.getElementById('create').onclick = () => {
+  createTask(false);
+}
+
+document.getElementById('createDraft').onclick = () => {
+  createTask(true);
+}
+
+document.getElementById('refreshNeedDesignList').onclick = () => {
+  refreshNeedDesignList();
+}
+
+document.getElementById('refreshClickupCommentsList').onclick = () => {
+  refreshClickupCommentsList();
+}
+
+function refreshClickupCommentsList () {
+  apiKey = "";
+  const apiKeyTextbox = document.getElementById('APIKey');
+  apiKey = apiKeyTextbox.value;
+
+  listID = "";
+  const listIDBox = document.getElementById('ListID');
+  listID = listIDBox.value;
+
+  var searchKeyWord = ""
+  const commentMentionInputval = document.getElementById('CommentMentionInput');
+  searchKeyWord = commentMentionInputval.value;
+
+  
+  // first get all tasks
+
+  var allTasks = []
+
+  fetch(`https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/list/${listID}/task`, {
+      "method": "GET",
+      "muteHttpExceptions": true,
+      "headers": {
+      "Authorization": `${apiKey}`,
+      "Content-Type": "application/json"
+      }
+      }).then(response => {
+        console.log(response)
+        console.log(`Response: ${response.status}`);
+      if (response.status != "200") {
+        // failed
+        warningText.style.visibility = "visible";
+        warningText.innerHTML = "Invalid Auth. Please create a new task and retry."
+        console.log(warningText.innerHTML);
+        parent.postMessage({ pluginMessage: { type: 'post-failed'}})
+        return;
+      }
+      response.text().then(responseTextForm => {
+        console.log(responseTextForm)
+        allTasks = JSON.parse(responseTextForm)["tasks"];
+
+      })
+    })
+
+    const commentsListDiv = document.getElementById("Clickup Comments List");
+    commentsListDiv.innerHTML = "";
+
+    for (let i = 0; i < allTasks.length; i++) { 
+      // get the name
+
+      const thisTaskName = allTasks[i]["name"]
+      const thisTaskID = allTasks[i]["id"]
+      const thisTaskLink = allTasks[i]["url"]
+
+      // get all comments, post the ones that have the keyword
+
+      fetch(`https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/task/${thisTaskID}/comment/`, {
+      "method": "GET",
+      "muteHttpExceptions": true,
+      "headers": {
+      "Authorization": `${apiKey}`,
+      "Content-Type": "application/json"
+      }
+      }).then(response => {
+        console.log(response)
+        console.log(`Response: ${response.status}`);
+      if (response.status != "200") {
+        // failed
+        warningText.style.visibility = "visible";
+        warningText.innerHTML = "Invalid Auth. Please create a new task and retry."
+        console.log(warningText.innerHTML);
+        parent.postMessage({ pluginMessage: { type: 'post-failed'}})
+        return;
+      }
+      response.text().then(responseTextForm => {
+        console.log(responseTextForm)
+        const allCommentsOnTask = JSON.parse(responseTextForm)["comments"];
+
+        for (let i = 0; i < allCommentsOnTask.length; i++) { 
+          const thisCommentText = allCommentsOnTask[i]["comment_text"]
+
+          if (thisCommentText.includes(searchKeyWord)) {
+            // add to list
+            const spacer = document.createElement("p");
+            const node = document.createTextNode("\n");
+            spacer.appendChild(node);
+
+        
+            commentsListDiv.appendChild(spacer);
+
+          
+            var commentspan = document.createElement('span');
+            commentspan.className = "taskSpan"
+            commentspan.appendChild(document.createTextNode(`${thisTaskName} : ${thisCommentText}.  Link: ${thisTaskLink}`));
+        
+            commentsListDiv.appendChild(taskspan);
+
+          }
+        }
+
+
+
+
+      })})
+    }
+}
+
+
+
+function refreshNeedDesignList () {
+  apiKey = "";
+  const apiKeyTextbox = document.getElementById('APIKey');
+  apiKey = apiKeyTextbox.value;
+
+  listID = "";
+  const listIDBox = document.getElementById('ListID');
+  listID = listIDBox.value;
+  
+  fetch(`https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/list/${listID}/task?statuses%5B%5D=NEEDS%20DESIGN`, {
+      "method": "GET",
+      "muteHttpExceptions": true,
+      "headers": {
+      "Authorization": `${apiKey}`,
+      "Content-Type": "application/json"
+      }
+      }).then(response => {
+        console.log(response)
+        console.log(`Response: ${response.status}`);
+      if (response.status != "200") {
+        // failed
+        warningText.style.visibility = "visible";
+        warningText.innerHTML = "Invalid Auth. Please create a new task and retry."
+        console.log(warningText.innerHTML);
+        parent.postMessage({ pluginMessage: { type: 'post-failed'}})
+        return;
+      }
+      response.text().then(responseTextForm => {
+        console.log(responseTextForm)
+        var taskList = JSON.parse(responseTextForm)["tasks"];
+
+        const listDiv = document.getElementById("Needs Design List");
+        listDiv.innerHTML = "";
+      
+
+        for (let i = 0; i < taskList.length; i++) {
+          const spacer = document.createElement("p");
+          const node = document.createTextNode("\n");
+          spacer.appendChild(node);
+
+        
+          listDiv.appendChild(spacer);
+
+          var NDtaskURL = taskList[i]["url"]
+          var NDtaskName = taskList[i]["name"]
+
+          console.log(NDtaskName)
+
+          // const taskp = document.createElement("p");
+          // const tasknode = document.createTextNode(`${NDtaskName} : ${NDtaskURL}`);
+          // taskp.appendChild(tasknode);
+
+          var taskspan = document.createElement('span');
+          taskspan.className = "taskSpan"
+          taskspan.appendChild(document.createTextNode(`${NDtaskName} : ${NDtaskURL}`));
+        
+          listDiv.appendChild(taskspan);
+
+      
+        }
+        
+      })
+      })
+}
+
+
+function getTask () {
+  userName = "DEFAULT";
+
+  apiKey = "";
+  const apiKeyTextbox = document.getElementById('APIKey');
+  apiKey = apiKeyTextbox.value;
+
+  figmaApiKey = "";
+  const figmaApiKeyTextbox = document.getElementById('FigmaAPIKey');
+  figmaApiKey = figmaApiKeyTextbox.value;
+
+  listID = "";
+  const listIDBox = document.getElementById('ListID');
+  listID = listIDBox.value;
+
+  
+  taskID = "";
+  const taskIDTextBox = document.getElementById('taskIDCurr');
+  taskID = taskIDTextBox.value;
+
+  warningTextTop.style.visibility = "visible";
+
+  if (figmaApiKey == "" || apiKey == "" || listID == "" || taskID == "") {
+    warningTextTop.innerHTML = "Please complete all fields."
+    return;
+  } 
+
+  warningTextTop.style.visibility = "hidden";
+
+
+  // getting task data
+
+  // Adding the main task  
+  fetch(`https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/task/${taskID}/`, {
+      "method": "GET",
+      "muteHttpExceptions": true,
+      "headers": {
+      "Authorization": `${apiKey}`,
+      "Content-Type": "application/json"
+      }
+      }).then(response => {
+        console.log(`Response: ${response.status}`);
+      if (response.status != "200") {
+        // failed
+        warningTextTop.style.visibility = "visible";
+        warningTextTop.innerHTML = "Invalid Authentication and/or ID. Please try again."
+        console.log(warningTextTop.innerHTML);
+        parent.postMessage({ pluginMessage: { type: 'post-failed'}})
+        return;
+      }
+      warningTextTop.style.visibility = "hidden";
+      warningTextTop.innerHTML = "Please complete all fields."
+      var taskNameToInsert = ""
+      response.text().then(responseTextForm => {
+          console.log(responseTextForm)
+          taskNameToInsert = JSON.parse(responseTextForm)["name"];
+          console.log(taskNameToInsert);
+          var taskLink = `https://app.clickup.com/t/${taskID}`
+          var isDraft = false;
+          var newTaskID = taskID;
+          taskName = taskNameToInsert;
+          console.log("GOT TO jEHRE")
+          parent.postMessage({ pluginMessage: { type: 'create-task-from-existing', userName,
+              listID, apiKey, figmaApiKey, taskName, taskLink, isDraft, newTaskID } }, '*')
+          
+          
+      })
+    })
+
+}
+
+function createTask (isDraft) {
+ 
+  
+  userName = "DEFAULT";
+  // const userNameTextbox = document.getElementById('username');
+  // userName = userNameTextbox.value;
+
+  apiKey = "";
+  const apiKeyTextbox = document.getElementById('APIKey');
+  apiKey = apiKeyTextbox.value;
+
+  figmaApiKey = "";
+  const figmaApiKeyTextbox = document.getElementById('FigmaAPIKey');
+  figmaApiKey = figmaApiKeyTextbox.value;
+
+  listID = "";
+  const listIDBox = document.getElementById('ListID');
+  listID = listIDBox.value;
+
+  taskName = "";
+  const taskNameTextBox = document.getElementById('taskname');
+  taskName = taskNameTextBox.value;
+
+  taskDescription = "";
+  const taskDescriptionBox = document.getElementById('taskdescription');
+  taskDescription = taskDescriptionBox.value;
+
+
+  warningText.style.visibility = "visible";
+
+  if (userName == ""|| figmaApiKey == "" || apiKey == "" || listID == "" || 
+  taskName == "" || taskDescription == "") {
+    warningText.innerHTML = "Please complete all fields."
+    return;
+  } 
+
+  warningText.style.visibility = "hidden";
+  
+  if (isDraft) {
+    taskName = "[DRAFT] " + taskName;
+  }
+
+  
+  
+    const clickUpbodyData = JSON.stringify({
+        "name": taskName,
+      });
+      var linkO = "";
+      var newTaskIDO = "";
+      var titleO = "";
+
+      //https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/list/${listID}/taskTemplate/t-2jkqd41
+
+      // Adding the main task  
+      fetch(`https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/list/${listID}/task`, {
+      "method": "POST",
+      "muteHttpExceptions": true,
+      "headers": {
+      "Authorization": `${apiKey}`,
+      "Content-Type": "application/json"
+      },
+      body: clickUpbodyData
+      }).then(response => {
+      console.log(`Response: ${response.status}`);
+      if (response.status != "200") {
+        // failed
+        warningText.style.visibility = "visible";
+        warningText.innerHTML = "Invalid Authentication and/or List ID. Please try again."
+        console.log(warningText.innerHTML);
+        parent.postMessage({ pluginMessage: { type: 'post-failed'}})
+        return;
+      }
+      warningText.style.visibility = "hidden";
+      warningText.innerHTML = "Please complete all fields."
+      var newTaskID = '';
+      response.text().then(responseTextForm => {
+          newTaskID = JSON.parse(responseTextForm)["id"];
+          console.log(newTaskID);
+          const clickUpUpdateData = JSON.stringify({
+              "name": taskName,
+              "description": taskDescription
+        });
+              curr_task_id = newTaskID;
+              // my personal pass: pk_48265732_AHYNQQG27P21HMJYU20QNEH4372MAIKN
+
+              // update the task with the other fields. Right now could do this in create, but in future
+              // if I want to add more fields, this is better
+              fetch(`https://fierce-spire-09192.herokuapp.com/https://api.clickup.com/api/v2/task/${newTaskID}/`, {
+                  "method": "PUT",
+                  "muteHttpExceptions": true,
+                  "headers": {
+                      "Authorization": `${apiKey}`,
+                      "Content-Type": "application/json"
+                  },
+                  body: clickUpUpdateData
+              }).then(response => {
+          if (response.status != "200") {
+            // failed
+              warningText.style.visibility = "visible";
+              warningText.innerHTML = "Invalid Authentication and/or List ID. Please try again."
+              console.log(warningText.innerHTML);
+              parent.postMessage({ pluginMessage: { type: 'post-failed'}})
+              return;
+            }
+              console.log("task posted, image yet to be posted")
+              newTaskIDO = newTaskID;
+              titleO = name;
+
+              // this format is the same for all tasks
+              taskLink = `https://app.clickup.com/t/${newTaskID}`;
+              
+              console.log("ISDRAFT AT TIME OF SEND" + isDraft);
+              // this works even if the image upload is not successful, so the task is at least created.
+              parent.postMessage({ pluginMessage: { type: 'create-task', userName,
+              listID, apiKey, figmaApiKey, taskName, taskDescription, taskLink, isDraft, newTaskID } }, '*')
+          })
+          });
+        })
+          .then(text => console.log(text))
+          .catch(err => console.error(err));
+
+
+      
+}
+
+document.getElementById('cancel').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'close-plugin' } }, '*')
+}
+
+
+
+
+</script>
